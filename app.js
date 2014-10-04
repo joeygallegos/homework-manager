@@ -10,7 +10,8 @@ app.set("view cache", true)
 app.use(express.static(__dirname + "/public"));
 
 app.get("/", function (req, res) {
-  res.send('Hello World!')
+  res.render("index", {title: "Homework List"})
+  //res.send('Hello World!')
 })
 
 app.use(function (req, res, next) {
