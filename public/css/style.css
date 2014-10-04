@@ -1,0 +1,28 @@
+.navbar {
+  margin-bottom: 0;
+}
+
+.page-header {
+  margin-top: 0;
+}
+
+.list-group p {
+  margin: 0;
+}
+
+.list-group .type {
+    position: relative;
+    top: 2px;
+}
+
+.list-group .list-group-item-text {
+  margin: 12px 0 10px 0;
+}
+
+.list-group .row-btns {
+  padding: 0 13px;
+}
+
+.list-group .col-xs-6 {
+  padding: 0 2px;
+}

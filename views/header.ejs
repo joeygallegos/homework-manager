@@ -8,6 +8,7 @@
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -31,7 +32,7 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li<%if (title == "Homework List") {%> class="active"<%}%>><a href="#"><i class="fa fa-list-ul"></i> Homework List</a></li>
-            <li<%if (title == "Classes Management") {%> class="active"<%}%>><a href="#"><i class="fa fa-gear"></i> Classes Management</a></li>
+            <li<%if (title == "Discipline Management") {%> class="active"<%}%>><a href="#"><i class="fa fa-gear"></i> Discipline Management</a></li>
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
@@ -42,3 +43,6 @@
     </nav>
 
     <div class="container">
+      <div class="page-header">
+        <h1><%= title %></h1>
+      </div>
