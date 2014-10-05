@@ -1,0 +1,45 @@
+<% include header %>
+    <div class="page-header">
+      <h3><i class="fa fa-plus"></i> Add Discipline</h3>
+    </div>
+
+    <form class="form-inline" role="form">
+      <div class="row">
+        <div class="col-sm-5">
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon">Label</div>
+              <input class="form-control" type="label" placeholder="Label">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-5">
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon">Name</div>
+              <input class="form-control" type="label" placeholder="Full Name">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <button type="submit" class="btn btn-success">Add</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="page-header">
+      <h3><i class="fa fa-list"></i> Discipline List</h3>
+    </div>
+
+    <ul class="list-group">
+      <li class="list-group-item">
+        <div class="media">
+          <div class="pull-left" id="controls">
+            <button href="#" class="btn btn-info btn-xs" id="edit" type="button"><i class="fa fa-pencil"></i></button> <button href="#" class="btn btn-danger btn-xs" id="edit" type="button"><i class="fa fa-trash"></i></button> <div class="label label-primary">FR</div>
+          </div>
+          <div class="media-body" id="discipline">
+            French
+          </div>
+      </li>
+    </ul>
+<% include footer %>

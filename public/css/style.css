@@ -2,6 +2,15 @@ nav .badge {
   margin-left: 3px;
 }
 
+.page-header,
+.page-header h3 {
+  margin-top: 0;
+}
+
+.page-header h3 {
+  margin-bottom: 0;
+}
+
 .list-group p {
   margin: 0;
 }
@@ -26,8 +35,16 @@ nav .badge {
   margin-top: 3px;
 }
 
+#controls.pull-left {
+  margin-top: 4px;
+}
+
 .media-body {
   padding-top: 4px;
+}
+
+#discipline.media-body {
+  padding-bottom: 3px;
 }
 
 button#done {
@@ -45,4 +62,14 @@ button#edit {
 
 .label[disabled] {
   opacity: .65;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+.form-group,
+.input-group,
+form button {
+  width: 100%;
 }
