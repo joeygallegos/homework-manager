@@ -1,18 +1,9 @@
-.navbar {
-  margin-bottom: 0;
-}
-
-.page-header {
-  margin-top: 0;
+nav .badge {
+  margin-left: 3px;
 }
 
 .list-group p {
   margin: 0;
-}
-
-.list-group .type {
-    position: relative;
-    top: 2px;
 }
 
 .list-group .list-group-item-text {
@@ -25,4 +16,33 @@
 
 .list-group .col-xs-6 {
   padding: 0 2px;
+}
+
+.media {
+  margin-top: 0;
+}
+
+.pull-left {
+  margin-top: 3px;
+}
+
+.media-body {
+  padding-top: 4px;
+}
+
+button#done {
+  padding: 10px 12px 8px 12px;
+}
+
+button#edit {
+  margin-top: -2px;
+  padding: 1px 5px 2px 5px;
+}
+
+.label {
+  font-size: 100%;
+}
+
+.label[disabled] {
+  opacity: .65;
 }
