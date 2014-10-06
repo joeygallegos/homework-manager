@@ -10,7 +10,7 @@ app.set("view cache", true)
 app.use(express.static(__dirname + "/public"));
 
 app.get("/", function (req, res) {
-  res.send("Index")
+  res.redirect("/list") //temporary redirect
 })
 
 app.get("/list", function (req, res) {

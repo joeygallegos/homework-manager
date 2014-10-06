@@ -2,6 +2,9 @@ nav .badge {
   margin-left: 3px;
 }
 
+a#homework {
+  cursor: pointer;
+}
 .page-header,
 .page-header h3 {
   margin-top: 0;
@@ -64,12 +67,12 @@ button#edit {
   opacity: .65;
 }
 
-form {
+form#discipline {
   margin-bottom: 20px;
 }
 
-.form-group,
-.input-group,
-form button {
+.form-group#discipline,
+.input-group#discipline,
+form button#discipline {
   width: 100%;
 }

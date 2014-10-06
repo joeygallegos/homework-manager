@@ -36,10 +36,10 @@
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
-            <li<%if (title == "Add Homework") {%> class="active"<%}%>><a href="#"><i class="fa fa-plus"></i> Add Homework</a></li>
+            <li class="active"><a id="homework" data-toggle="modal" data-target="#addHomework"><i class="fa fa-plus"></i> Add Homework</a></li>
           </ul>
         </div>
       </div>
     </nav>
-
+    <% include modal %>
     <div class="container">
