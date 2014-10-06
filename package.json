@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "dependencies": {
     "express": "4.x",
-    "ejs": "1.x"
+    "ejs": "1.x",
+    "mongodb": "1.4.x"
   }
 }
