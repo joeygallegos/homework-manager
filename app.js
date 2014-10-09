@@ -66,21 +66,6 @@ app.get("/api/discipline/add", function(req, res) {
   })
 })
 
-app.get("/api/discipline/get", function(req, res) {
-  var response = new APIResponse()
-
-  var collection = db.get("disciplines")
-  collection.find({}, function(err, doc) {
-    if (err) {
-      response.setResponse("error", err.message)
-      return response.sendResponse(res)
-    }
-
-    response.setResponse("success", doc)
-    response.sendResponse(res)
-  })
-})
-
 app.use(function(req, res, next) {
   res.status(404).send("Error 404: File not found.")
 })
