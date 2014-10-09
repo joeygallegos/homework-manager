@@ -31,11 +31,7 @@ app.get("/api/discipline/add", function(req, res) {
   var name = req.param("name")
   var label = req.param("label")
 
-  var collection = db.get("disciplines");
-  /*var test = collection.find({$or: {label: label, name: name}}).count(function(e, count) {
-    console.log(e + ":" + count)
-  })*/
-
+  var collection = db.get("disciplines")
   collection.find({$or: [{label: label}, {name: name}]}, function(err, doc) {
     if (err) {
       response.setResponse("error", err.message)
@@ -56,6 +52,21 @@ app.get("/api/discipline/add", function(req, res) {
         response.sendResponse(res)
       })
     }
+  })
+})
+
+app.get("/api/discipline/get", function(req, res) {
+  var response = new APIResponse()
+
+  var collection = db.get("disciplines")
+  collection.find({}, function(err, doc) {
+    if (err) {
+      response.setResponse("error", err.message)
+      return response.sendResponse(res)
+    }
+
+    response.setResponse("success", doc)
+    response.sendResponse(res)
   })
 })
 
