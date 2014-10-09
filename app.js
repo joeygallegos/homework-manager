@@ -23,7 +23,18 @@ app.get("/list", function(req, res) {
 })
 
 app.get("/manage", function(req, res) {
-  res.render("manage", {title: "Discipline Management"})
+  var collection = db.get("disciplines")
+  collection.find({}, function(err, doc) {
+    if (err) {
+      return res.render("manage", {title: "Discipline Management", disciplines: "error"});
+    }
+
+    if (doc.length > 0) {
+      res.render("manage", {title: "Discipline Management", disciplines: doc})
+    } else {
+      res.render("manage", {title: "Discipline Management", disciplines: "empty"})
+    }
+  })
 })
 
 app.get("/api/discipline/add", function(req, res) {
