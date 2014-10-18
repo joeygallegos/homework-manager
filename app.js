@@ -1,7 +1,9 @@
 var express = require("express")
 var monk = require("monk")
+var bodyParser = require("body-parser")
 
 var APIResponse = require("./lib/APIResponse")
+var utils = require("./lib/Utils")
 
 var app = express()
 var db = monk("localhost:27017/homework-manager")
@@ -13,6 +15,7 @@ app.set("views", __dirname + "/views")
 app.set("view engine", "ejs")
 app.set("view cache", true)
 app.use(express.static(__dirname + "/public"));
+app.use(bodyParser.urlencoded({extended: false}))
 
 app.get("/", function(req, res) {
   res.redirect("/list") //temporary redirect
@@ -39,8 +42,19 @@ app.get("/manage", function(req, res) {
 
 app.get("/api/discipline/add", function(req, res) {
   var response = new APIResponse()
-  var name = req.param("name")
+  response.setResponse("critical", "This feature only accepts POST requests.")
+  response.sendResponse(res)
+})
+
+app.post("/api/discipline/add", function(req, res) {
+  var response = new APIResponse()
   var label = req.param("label")
+  var name = req.param("name")
+
+  if (utils.isEmpty(label) || utils.isEmpty(name)) {
+    response.setResponse("error", "Something is empty!")
+    return response.sendResponse(res)
+  }
 
   var collection = db.get("disciplines")
   collection.find({$or: [{label: label}, {name: name}]}, function(err, doc) {

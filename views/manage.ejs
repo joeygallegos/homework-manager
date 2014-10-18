@@ -1,28 +1,29 @@
 <% include header %>
+    <div id="alerts"></div>
     <div class="page-header">
       <h3><i class="fa fa-plus"></i> Add Discipline</h3>
     </div>
 
-    <form class="form-inline" role="form" id="discipline">
+    <form class="form-inline" role="form" id="addDiscipline" action="/api/discipline/add" method="POST">
       <div class="row">
         <div class="col-sm-5">
-          <div class="form-group" id="discipline">
-            <div class="input-group" id="discipline">
+          <div class="form-group" id="addDiscipline">
+            <div class="input-group" id="addDiscipline">
               <div class="input-group-addon">Label</div>
-              <input class="form-control" type="label" placeholder="Label">
+              <input class="form-control" type="text" name="label" placeholder="Label">
             </div>
           </div>
         </div>
         <div class="col-sm-5">
-          <div class="form-group" id="discipline">
-            <div class="input-group" id="discipline">
+          <div class="form-group" id="addDiscipline">
+            <div class="input-group" id="addDiscipline">
               <div class="input-group-addon">Name</div>
-              <input class="form-control" type="label" placeholder="Full Name">
+              <input class="form-control" type="text" name="name" placeholder="Full Name">
             </div>
           </div>
         </div>
         <div class="col-sm-2">
-          <button type="submit" class="btn btn-success" id="discipline">Add</button>
+          <button type="submit" class="btn btn-success" id="addDiscipline">Add</button>
         </div>
       </div>
     </form>
@@ -55,4 +56,10 @@
         </ul>
       <%}%>
     </div>
+
+    <script>
+      postForm("#addDiscipline", function() {
+        createAlert("#alerts", true, data.status, data.message)
+      })
+    </script>
 <% include footer %>

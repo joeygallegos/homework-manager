@@ -6,6 +6,7 @@
     "express": "4.x",
     "ejs": "1.x",
     "mongodb": "1.4.x",
-    "monk": "0.9.x"
+    "monk": "0.9.x",
+    "body-parser": "1.9.x"
   }
 }

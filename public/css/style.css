@@ -67,12 +67,12 @@ button#edit {
   opacity: .65;
 }
 
-form#discipline {
+form#addDiscipline {
   margin-bottom: 20px;
 }
 
-.form-group#discipline,
-.input-group#discipline,
-form button#discipline {
+.form-group#addDiscipline,
+.input-group#addDiscipline,
+form button#addDiscipline {
   width: 100%;
 }
