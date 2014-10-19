@@ -80,6 +80,56 @@ app.post("/api/discipline/add", function(req, res) {
   })
 })
 
+app.get("/api/discipline/get", function(req, res) {
+  var collection = db.get("disciplines")
+  collection.find({}, function(err, doc) {
+    if (err) {
+      return res.render("manage-list", {disciplines: "error"});
+    }
+
+    if (doc.length > 0) {
+      res.render("manage-list", {disciplines: doc})
+    } else {
+      res.render("manage-list", {disciplines: "empty"})
+    }
+  })
+})
+
+app.post("/api/discipline/get", function(req, res) {
+  var response = new APIResponse()
+  response.setResponse("critical", "This feature only accepts GET requests.")
+  response.sendResponse(res)
+})
+
+app.get("/api/discipline/remove", function(req, res) {
+  var response = new APIResponse()
+  response.setResponse("critical", "This feature only accepts POST requests.")
+  response.sendResponse(res)
+})
+
+app.post("/api/discipline/remove", function(req, res) {
+  var response = new APIResponse()
+  var id = req.param("id")
+
+  if (utils.isEmpty(id)) {
+    response.setResponse("error", "An error occurred!")
+    return response.sendResponse(res)
+  }
+
+  var collection = db.get("disciplines")
+  id = collection.id(id)
+
+  collection.findAndModify({_id: id}, {}, {remove: true}, function(err, doc) {
+    if (err) {
+      response.setResponse("error", err.message)
+      return response.sendResponse(res)
+    }
+
+    response.setResponse("success", "Discipline removed!")
+    response.sendResponse(res)
+  })
+})
+
 app.use(function(req, res, next) {
   res.status(404).send("Error 404: File not found.")
 })

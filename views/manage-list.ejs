@@ -1,0 +1,23 @@
+    <% if (disciplines == "error") {%>
+      <div class="alert alert-danger" role="alert">
+        An error occurred while getting the disciplines.
+      </div>
+    <%} else if (disciplines == "empty") {%>
+      <div class="alert alert-danger" role="alert">
+        There's no disciplines on the database.
+      </div>
+    <%} else {%>
+      <ul class="list-group">
+      <%for (var i = 0; i < disciplines.length; i++) {%>
+        <li class="list-group-item">
+          <div class="media">
+            <div class="pull-left" id="controls">
+              <button href="#" class="btn btn-info btn-xs" id="edit" type="button"><i class="fa fa-pencil"></i></button> <button href="#" class="btn btn-danger btn-xs" id="edit" type="button" onclick="removeDiscipline('<%=disciplines[i]._id%>')"><i class="fa fa-trash"></i></button> <div class="label label-primary"><%=disciplines[i].label%></div>
+            </div>
+            <div class="media-body" id="discipline">
+              <%=disciplines[i].name%>
+            </div>
+        </li>
+      <%}%>
+      </ul>
+    <%}%>

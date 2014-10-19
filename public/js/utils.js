@@ -5,7 +5,7 @@ function postForm(element, toRun) {
     var url = $(this).attr("action")
     var formData = $(this).serializeArray()
 
-    $.post(url, formData, toRun ,"json");
+    $.post(url, formData, function(data) { toRun(data) }, "json");
   })
 }
 
