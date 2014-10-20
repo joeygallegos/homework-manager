@@ -35,11 +35,13 @@
       <% include manage-list %>
     </div>
 
+    <% include edit-discipline-modal %>
+
     <script>
       postForm("#addDiscipline", function(data) {
         createAlert("#alerts", true, data.status, data.message)
 
-        if (data.message == "Discipline added!")
+        if (data.status == "success")
           refreshList()
       })
 
@@ -62,5 +64,23 @@
           $("#disciplines").html(html)
         })
       }
+
+      function showEditDiscipline(id, label, name) {
+        var form = $("#editDiscipline form");
+
+        $(form).find("input[name='id']").val(id)
+        $(form).find("input[name='label']").val(label)
+        $(form).find("input[name='name']").val(name)
+
+        $("#editDiscipline").modal("show")
+      }
+
+      postForm("#editDiscipline form", function(data) {
+        createAlert("#alerts", true, data.status, data.message)
+        $("#editDiscipline").modal("hide")
+
+        if (data.status == "success")
+          refreshList()
+      })
     </script>
 <% include footer %>

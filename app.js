@@ -130,6 +130,37 @@ app.post("/api/discipline/remove", function(req, res) {
   })
 })
 
+app.get("/api/discipline/edit", function(req, res) {
+  var response = new APIResponse()
+  response.setResponse("critical", "This feature only accepts POST requests.")
+  response.sendResponse(res)
+})
+
+app.post("/api/discipline/edit", function(req, res) {
+  var response = new APIResponse()
+  var id = req.param("id")
+  var label = req.param("label")
+  var name = req.param("name")
+
+  if (utils.isEmpty(id) || utils.isEmpty(label) || utils.isEmpty(name)) {
+    response.setResponse("error", "An error occurred!")
+    return response.sendResponse(res)
+  }
+
+  var collection = db.get("disciplines")
+  id = collection.id(id)
+  
+  collection.update({_id: id}, {label: label, name: name}, function(err, doc) {
+    if (err) {
+      response.setResponse("error", err.message)
+      return response.sendResponse(res)
+    }
+
+    response.setResponse("success", "Discipline edited!")
+    response.sendResponse(res)
+  })
+})
+
 app.use(function(req, res, next) {
   res.status(404).send("Error 404: File not found.")
 })

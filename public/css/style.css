@@ -76,3 +76,11 @@ form#addDiscipline {
 form button#addDiscipline {
   width: 100%;
 }
+
+.media-body#editDiscipline {
+  padding: 15px 0 0 0;
+}
+
+.form-group#editDiscipline {
+  padding: 0 15px;
+}

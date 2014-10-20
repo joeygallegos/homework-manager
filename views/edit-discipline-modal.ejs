@@ -1,0 +1,33 @@
+<div class="modal fade" id="editDiscipline" tabindex="-1" role="dialog" aria-labelledby="editDiscipline" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="editDisciplineLabel"><i class="fa fa-pencil"></i> Edit Discipline</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form" action="/api/discipline/edit" method="POST">
+          <input type="hidden" name="id" value="hjhjh">
+          <div class="form-group">
+            <label for="label" class="col-sm-2 control-label">Label</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="label" name="label" placeholder="Label" value="">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="discipline" class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="">
+            </div>
+          </div>
+
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+        <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
+      </div>
+    </div>
+  </div>
+</div>
