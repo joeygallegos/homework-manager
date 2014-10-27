@@ -1,25 +1,26 @@
-<div class="modal fade" id="addHomework" tabindex="-1" role="dialog" aria-labelledby="addHomework" aria-hidden="true">
+<div class="modal fade" id="editHomework" tabindex="-1" role="dialog" aria-labelledby="editHomework" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="addHomeworkLabel"><i class="fa fa-plus"></i> Add Homework</h4>
+        <h4 class="modal-title" id="editHomeworkLabel"><i class="fa fa-plus"></i> Edit Homework</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal" role="form" action="/api/homework/add" method="POST">
-          <div class="form-group" id="addHomework">
+        <form class="form-horizontal" role="form" action="/api/homework/edit" method="POST">
+          <input type="hidden" name="id" value="">
+          <div class="form-group" id="editHomework">
             <label for="date" class="col-sm-2 control-label">Date</label>
             <div class="col-sm-10">
-              <input type="date" class="form-control" id="date" name="date" placeholder="Delivery Date">
+              <input type="date" class="form-control" id="date" name="date" placeholder="Delivery Date" value="">
             </div>
           </div>
-          <div class="form-group" id="addHomework">
+          <div class="form-group" id="editHomework">
             <label for="discipline" class="col-sm-2 control-label">Discipline</label>
             <div class="col-sm-10">
               <select class="form-control" id="discipline" name="discipline"></select>
             </div>
           </div>
-          <div class="form-group" id="addHomework">
+          <div class="form-group" id="editHomework">
             <label for="description" class="col-sm-2 control-label">Description</label>
             <div class="col-sm-10">
               <textarea class="form-control" rows="3" id="description" name="description" placeholder="Description"></textarea>

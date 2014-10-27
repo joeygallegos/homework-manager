@@ -1,0 +1,28 @@
+    <% if (data == "error") {%>
+      <div class="alert alert-danger" role="alert">
+        An error occurred while getting the homework.
+      </div>
+    <%} else if (data == "empty") {%>
+      <div class="alert alert-danger" role="alert">
+        There is no homework on the database.
+      </div>
+    <%} else {%>
+      <ul class="list-group">
+      <%for (var i = 0; i < data.length; i++) {%>
+        <%var homework = data[i]%>
+        <li href="#" class="list-group-item <% if(homework.done) {%>list-group-item-success<%}%>">
+          <p class="list-group-item-heading">
+            <div class="media">
+              <div class="pull-left">
+                <button href="#" class="btn btn-success" type="button" id="done" onclick="toggleHomework('<%=homework._id%>')"><i class="fa fa-check"></i></button><br/>
+              </div>
+              <div class="media-body">
+                <div class="label label-primary"><%=homework.discipline%></div> <div class="label label-warning"><%=homework.date%></div> <button href="#" class="btn btn-info btn-xs" id="edit" type="button" onclick="showEditHomework('<%=homework._id%>', '<%=homework.date%>', '<%=homework.discipline%>', '<%=homework.description%>')"><i class="fa fa-pencil"></i></button>
+                <p><%=homework.description%></p>
+              </div>
+            </div>
+          </p>
+        </li>
+      <%}%>
+      </ul>
+    <%}%>

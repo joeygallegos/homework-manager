@@ -2,7 +2,7 @@ nav .badge {
   margin-left: 3px;
 }
 
-a#homework {
+a#addHomeworkButton {
   cursor: pointer;
 }
 .page-header,
@@ -77,10 +77,12 @@ form button#addDiscipline {
   width: 100%;
 }
 
-.media-body#editDiscipline {
+.modal-body {
   padding: 15px 0 0 0;
 }
 
-.form-group#editDiscipline {
+.form-group#editDiscipline,
+.form-group#editHomework,
+.form-group#addHomework {
   padding: 0 15px;
 }

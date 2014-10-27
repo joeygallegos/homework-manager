@@ -2,48 +2,7 @@
     <div class="page-header">
       <h3><i class="fa fa-list"></i> Homework List</h3>
     </div>
+    <div id="homework"></div>
 
-    <div class="list-group">
-      <li href="#" class="list-group-item">
-        <p class="list-group-item-heading">
-          <div class="media">
-            <div class="pull-left">
-              <button href="#" class="btn btn-success" type="button" id="done"><i class="fa fa-check"></i></button><br/>
-            </div>
-            <div class="media-body">
-              <div class="label label-primary">LP</div> <div class="label label-warning">DD/MM/YYYY</div> <button href="#" class="btn btn-info btn-xs" id="edit" type="button"><i class="fa fa-pencil"></i></button>
-              <p>One day this will be a full description.</p>
-            </div>
-          </div>
-        </p>
-      </li>
-
-      <li href="#" class="list-group-item">
-        <p class="list-group-item-heading">
-          <div class="media">
-            <div class="pull-left">
-              <button href="#" class="btn btn-success" type="button" id="done"><i class="fa fa-check"></i></button><br/>
-            </div>
-            <div class="media-body">
-              <div class="label label-primary">LP</div> <div class="label label-warning">DD/MM/YYYY</div> <button href="#" class="btn btn-info btn-xs" id="edit" type="button"><i class="fa fa-pencil"></i></button>
-              <p>One day this will be a full description.</p>
-            </div>
-          </div>
-        </p>
-      </li>
-
-      <li href="#" class="list-group-item disabled">
-        <p class="list-group-item-heading">
-          <div class="media">
-            <div class="pull-left">
-              <button href="#" class="btn btn-success" type="button" id="done" disabled><i class="fa fa-check"></i></button><br/>
-            </div>
-            <div class="media-body">
-              <div class="label label-primary" disabled>LP</div> <div class="label label-warning" disabled>DD/MM/YYYY</div> <button href="#" class="btn btn-info btn-xs" id="edit" type="button" disabled><i class="fa fa-pencil"></i></button>
-              <p>One day this will be a full description.</p>
-            </div>
-          </div>
-        </p>
-      </li>
-    </div>
+    <% include edit-homework-modal %>
 <% include footer %>

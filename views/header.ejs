@@ -10,10 +10,6 @@
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/utils.js"></script>
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -35,15 +31,16 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li<%if (title == "Homework List") {%> class="active"<%}%>><a href="list"><i class="fa fa-list-ul"></i> Homework List <span class="badge">2</span></a></li>
+            <li<%if (title == "Homework List") {%> class="active"<%}%>><a href="list"><i class="fa fa-list-ul"></i> Homework List <span class="badge" id="homework-count"></span></a></li>
             <li<%if (title == "Discipline Management") {%> class="active"<%}%>><a href="manage"><i class="fa fa-gear"></i> Discipline Management</a></li>
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a id="homework" data-toggle="modal" data-target="#addHomework"><i class="fa fa-plus"></i> Add Homework</a></li>
+            <li class="active"><a href="#" id="addHomeworkButton" data-toggle="modal" data-target="#addHomework"><i class="fa fa-plus"></i> Add Homework</a></li>
           </ul>
         </div>
       </div>
     </nav>
     <% include new-homework-modal %>
     <div class="container">
+      <div id="alerts"></div>

@@ -9,13 +9,14 @@
     <%} else {%>
       <ul class="list-group">
       <%for (var i = 0; i < disciplines.length; i++) {%>
+        <%var discipline = disciplines[i]%>
         <li class="list-group-item">
           <div class="media">
             <div class="pull-left" id="controls">
-              <button href="#" class="btn btn-info btn-xs" id="edit" type="button" onclick="showEditDiscipline('<%=disciplines[i]._id%>', '<%=disciplines[i].label%>', '<%=disciplines[i].name%>')"><i class="fa fa-pencil"></i></button> <button href="#" class="btn btn-danger btn-xs" id="edit" type="button" onclick="removeDiscipline('<%=disciplines[i]._id%>')"><i class="fa fa-trash"></i></button> <div class="label label-primary"><%=disciplines[i].label%></div>
+              <button href="#" class="btn btn-info btn-xs" id="edit" type="button" onclick="showEditDiscipline('<%=discipline._id%>', '<%=discipline.label%>', '<%=discipline.name%>')"><i class="fa fa-pencil"></i></button> <button href="#" class="btn btn-danger btn-xs" id="edit" type="button" onclick="removeDiscipline('<%=discipline._id%>')"><i class="fa fa-trash"></i></button> <div class="label label-primary"><%=discipline.label%></div>
             </div>
             <div class="media-body" id="discipline">
-              <%=disciplines[i].name%>
+              <%=discipline.name%>
             </div>
         </li>
       <%}%>

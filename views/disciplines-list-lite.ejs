@@ -1,0 +1,10 @@
+    <% if (disciplines == "error") {%>
+        An error occurred while getting the disciplines.
+    <%} else if (disciplines == "empty") {%>
+        There are no disciplines on the database.
+    <%} else {%>
+      <%for (var i = 0; i < disciplines.length; i++) {%>
+        <%var discipline = disciplines[i]%>
+        <option value="<%=discipline.label%>"><%=discipline.label%>: <%=discipline.name%></option>
+      <%}%>
+    <%}%>

@@ -1,5 +1,4 @@
 <% include header %>
-    <div id="alerts"></div>
     <div class="page-header">
       <h3><i class="fa fa-plus"></i> Add Discipline</h3>
     </div>
@@ -31,56 +30,7 @@
     <div class="page-header">
       <h3><i class="fa fa-list"></i> Discipline List</h3>
     </div>
-    <div id="disciplines">
-      <% include manage-list %>
-    </div>
+    <div id="disciplines"></div>
 
     <% include edit-discipline-modal %>
-
-    <script>
-      postForm("#addDiscipline", function(data) {
-        createAlert("#alerts", true, data.status, data.message)
-
-        if (data.status == "success")
-          refreshList()
-      })
-
-      function removeDiscipline(id) {
-        var response = confirm("Do you REALLY want to remove a discipline?")
-        if (response) {
-          console.log("Removing discipline")
-          $.post("/api/discipline/remove", {id: id}, function(data) {
-            createAlert("#alerts", true, data.status, data.message)
-
-            if (data.status == "success")
-              refreshList()
-          }, "json")
-        }
-      }
-
-      function refreshList() {
-        console.log("Refreshing discipline list")
-        $.ajax("/api/discipline/get").done(function(html) {
-          $("#disciplines").html(html)
-        })
-      }
-
-      function showEditDiscipline(id, label, name) {
-        var form = $("#editDiscipline form");
-
-        $(form).find("input[name='id']").val(id)
-        $(form).find("input[name='label']").val(label)
-        $(form).find("input[name='name']").val(name)
-
-        $("#editDiscipline").modal("show")
-      }
-
-      postForm("#editDiscipline form", function(data) {
-        createAlert("#alerts", true, data.status, data.message)
-        $("#editDiscipline").modal("hide")
-
-        if (data.status == "success")
-          refreshList()
-      })
-    </script>
 <% include footer %>
