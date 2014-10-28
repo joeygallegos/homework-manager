@@ -1,0 +1,24 @@
+    <% if (subjects == "error") {%>
+      <div class="alert alert-danger" role="alert">
+        An error occurred while getting the subjects.
+      </div>
+    <%} else if (subjects == "empty") {%>
+      <div class="alert alert-danger" role="alert">
+        There are no subjects on the database.
+      </div>
+    <%} else {%>
+      <ul class="list-group">
+      <%for (var i = 0; i < subjects.length; i++) {%>
+        <%var subject = subjects[i]%>
+        <li class="list-group-item">
+          <div class="media">
+            <div class="pull-left" id="controls">
+              <button href="#" class="btn btn-info btn-xs" id="edit" type="button" onclick="showEditSubject('<%=subject._id%>', '<%=subject.label%>', '<%=subject.name%>')"><i class="fa fa-pencil"></i></button> <button href="#" class="btn btn-danger btn-xs" id="edit" type="button" onclick="removeSubject('<%=subject._id%>')"><i class="fa fa-trash"></i></button> <div class="label label-primary"><%=subject.label%></div>
+            </div>
+            <div class="media-body" id="subject">
+              <%=subject.name%>
+            </div>
+        </li>
+      <%}%>
+      </ul>
+    <%}%>

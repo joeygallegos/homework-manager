@@ -1,36 +1,36 @@
 <% include header %>
     <div class="page-header">
-      <h3><i class="fa fa-plus"></i> Add Discipline</h3>
+      <h3><i class="fa fa-plus"></i> Add Subject</h3>
     </div>
 
-    <form class="form-inline" role="form" id="addDiscipline" action="/api/discipline/add" method="POST">
+    <form class="form-inline" role="form" id="addSubject" action="/api/subject/add" method="POST">
       <div class="row">
         <div class="col-sm-5">
-          <div class="form-group" id="addDiscipline">
-            <div class="input-group" id="addDiscipline">
+          <div class="form-group" id="addSubject">
+            <div class="input-group" id="addSubject">
               <div class="input-group-addon">Label</div>
               <input class="form-control" type="text" name="label" placeholder="Label">
             </div>
           </div>
         </div>
         <div class="col-sm-5">
-          <div class="form-group" id="addDiscipline">
-            <div class="input-group" id="addDiscipline">
+          <div class="form-group" id="addSubject">
+            <div class="input-group" id="addSubject">
               <div class="input-group-addon">Name</div>
               <input class="form-control" type="text" name="name" placeholder="Full Name">
             </div>
           </div>
         </div>
         <div class="col-sm-2">
-          <button type="submit" class="btn btn-success" id="addDiscipline">Add</button>
+          <button type="submit" class="btn btn-success" id="addSubject">Add</button>
         </div>
       </div>
     </form>
 
     <div class="page-header">
-      <h3><i class="fa fa-list"></i> Discipline List</h3>
+      <h3><i class="fa fa-list"></i> Subject List</h3>
     </div>
-    <div id="disciplines"></div>
+    <div id="subjects"></div>
 
-    <% include edit-discipline-modal %>
+    <% include edit-subject-modal %>
 <% include footer %>

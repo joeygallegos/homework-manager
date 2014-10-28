@@ -33,65 +33,67 @@ function createAlert(element, clear, type, message) {
   console.log(message)
 }
 
-function populateDisciplines() {
-  console.log("Populating disciplines")
+// Subjects
+postForm("#addSubject", function(data) {
+  createAlert("#alerts", true, data.status, data.message)
+
+  if (data.status == "success")
+    refreshSubjectList()
+})
+
+postForm("#editSubject form", function(data) {
+  createAlert("#alerts", true, data.status, data.message)
+  $("#editSubject").modal("hide")
+
+  if (data.status == "success")
+    refreshSubjectList()
+})
+
+function removeSubject(id) {
+  var response = confirm("Do you REALLY want to remove a subject?")
+  if (response) {
+    console.log("Removing subject")
+    $.post("/api/subject/remove", {id: id}, function(data) {
+      createAlert("#alerts", true, data.status, data.message)
+
+      if (data.status == "success")
+        refreshSubjectList()
+    }, "json")
+  }
+}
+
+function refreshSubjectList() {
   var pageTitle = $("title").html()
-  $.ajax("/api/discipline/get?lite=true").done(function(html) {
+  if (pageTitle.indexOf("Subject Management") > -1) {
+    console.log("Refreshing subject list")
+    $.ajax("/api/subject/get").done(function(html) {
+      $("#subjects").html(html)
+    })
+  }
+
+  populateSubjects()
+}
+
+function showEditSubject(id, label, name) {
+  var form = $("#editSubject form");
+
+  $(form).find("input[name='id']").val(id)
+  $(form).find("input[name='label']").val(label)
+  $(form).find("input[name='name']").val(name)
+
+  $("#editSubject").modal("show")
+}
+
+function populateSubjects() {
+  console.log("Populating subjects")
+  var pageTitle = $("title").html()
+  $.ajax("/api/subject/get?lite=true").done(function(html) {
     $("#addHomework select").html(html)
 
     if (pageTitle.indexOf("Homework List") > -1) {
       $("#editHomework select").html(html)
     }
   })
-}
-
-// Disciplines
-postForm("#addDiscipline", function(data) {
-  createAlert("#alerts", true, data.status, data.message)
-
-  if (data.status == "success")
-    refreshDisciplineList()
-})
-
-postForm("#editDiscipline form", function(data) {
-  createAlert("#alerts", true, data.status, data.message)
-  $("#editDiscipline").modal("hide")
-
-  if (data.status == "success")
-    refreshDisciplineList()
-})
-
-function removeDiscipline(id) {
-  var response = confirm("Do you REALLY want to remove a discipline?")
-  if (response) {
-    console.log("Removing discipline")
-    $.post("/api/discipline/remove", {id: id}, function(data) {
-      createAlert("#alerts", true, data.status, data.message)
-
-      if (data.status == "success")
-        refreshDisciplineList()
-    }, "json")
-  }
-}
-
-function refreshDisciplineList() {
-  var pageTitle = $("title").html()
-  if (pageTitle.indexOf("Discipline Management") > -1) {
-    console.log("Refreshing discipline list")
-    $.ajax("/api/discipline/get").done(function(html) {
-      $("#disciplines").html(html)
-    })
-  }
-}
-
-function showEditDiscipline(id, label, name) {
-  var form = $("#editDiscipline form");
-
-  $(form).find("input[name='id']").val(id)
-  $(form).find("input[name='label']").val(label)
-  $(form).find("input[name='name']").val(name)
-
-  $("#editDiscipline").modal("show")
 }
 
 // Homework
@@ -123,16 +125,16 @@ function refreshHomeworkList() {
   refreshHomeworkCount()
 }
 
-function showEditHomework(id, date, discipline, description) {
+function showEditHomework(id, date, subject, description) {
   var form = $("#editHomework form")
 
   $(form).find("input[name='id']").val(id)
   $(form).find("input[name='date']").val(date)
   $(form).find("textarea[name='description']").html(description)
 
-  var disciplines = $(form).find("select[name='discipline'] option")
-  $(disciplines).each(function() {
-    if (this.value == discipline) {
+  var subjects = $(form).find("select[name='subject'] option")
+  $(subjects).each(function() {
+    if (this.value == subject) {
       $(this).prop("selected", true)
     } else if ($(this).prop("selected") == true) {
       $(this).prop("selected", false)
@@ -167,6 +169,6 @@ function refreshHomeworkCount() {
 // Populate everything
 $(window).ready(function() {
   refreshHomeworkList()
-  refreshDisciplineList()
-  populateDisciplines()
+  refreshSubjectList()
+  populateSubjects()
 })

@@ -24,7 +24,7 @@ app.get("/", function(req, res) {
 app.get("/list", function(req, res) {
   var collection = db.get("homework")
   var homework = "error"
-  var disciplines = "error"
+  var subjects = "error"
 
   collection.find({}, {sort: {done: 1, date: 1}}, function(err, doc) {
     if (err) {
@@ -36,55 +36,55 @@ app.get("/list", function(req, res) {
         homework = "empty"
       }
 
-      collection = db.get("disciplines")
+      collection = db.get("subjects")
       collection.find({}, function(err, doc) {
         if (!err) {
           if (doc.length > 0) {
-            disciplines = doc
+            subjects = doc
           } else {
-          disciplines = "empty"
+          subjects = "empty"
           }
         }
 
-        res.render("list", {title: "Homework List", data: homework, disciplines: disciplines})
+        res.render("list", {title: "Homework List", data: homework, subjects: subjects})
       })
     }
   })
 })
 
 app.get("/manage", function(req, res) {
-  var collection = db.get("disciplines")
+  var collection = db.get("subjects")
   collection.find({}, function(err, doc) {
     if (err) {
-      return res.render("manage", {title: "Discipline Management", data: "error", disciplines: "error"})
+      return res.render("manage", {title: "Subject Management", data: "error", subjects: "error"})
     }
 
     if (doc.length > 0) {
-      var disciplines = doc
+      var subjects = doc
       collection.find({}, function(err, doc) {
         if (err) {
-          return res.render("manage", {title: "Discipline Management", data: disciplines, disciplines: "error"})
+          return res.render("manage", {title: "subject Management", data: subjects, subjects: "error"})
         }
 
         if (doc.length > 0) {
-          res.render("manage", {title: "Discipline Management", data: disciplines, disciplines: doc})
+          res.render("manage", {title: "Subject Management", data: subjects, subjects: doc})
         } else {
-          res.render("manage", {title: "Discipline Management", data: disciplines, disciplines: "empty"})
+          res.render("manage", {title: "Subject Management", data: subjects, subjects: "empty"})
         }
       })
     } else {
-      res.render("manage", {title: "Discipline Management", data: "empty", disciplines: "empty"})
+      res.render("manage", {title: "Subject Management", data: "empty", subjects: "empty"})
     }
   })
 })
 
-app.get("/api/discipline/add", function(req, res) {
+app.get("/api/subject/add", function(req, res) {
   var response = new APIResponse()
   response.setResponse("critical", "This feature only accepts POST requests.")
   response.sendResponse(res)
 })
 
-app.post("/api/discipline/add", function(req, res) {
+app.post("/api/subject/add", function(req, res) {
   var response = new APIResponse()
   var label = req.param("label")
   var name = req.param("name")
@@ -94,7 +94,7 @@ app.post("/api/discipline/add", function(req, res) {
     return response.sendResponse(res)
   }
 
-  var collection = db.get("disciplines")
+  var collection = db.get("subjects")
   collection.find({$or: [{label: label}, {name: name}]}, function(err, doc) {
     if (err) {
       response.setResponse("error", err.message)
@@ -102,7 +102,7 @@ app.post("/api/discipline/add", function(req, res) {
     }
 
     if (doc.length > 0) {
-      response.setResponse("error", "The label or the discipline already exists!")
+      response.setResponse("error", "The label or the subject already exists!")
       response.sendResponse(res)
     } else {
       collection.insert({label: label, name: name}, function(err, doc) {
@@ -111,48 +111,48 @@ app.post("/api/discipline/add", function(req, res) {
           return response.sendResponse(res)
         }
 
-        response.setResponse("success", "Discipline added!")
+        response.setResponse("success", "Subject added!")
         response.sendResponse(res)
       })
     }
   })
 })
 
-app.get("/api/discipline/get", function(req, res) {
+app.get("/api/subject/get", function(req, res) {
   var response = new APIResponse()
   var lite = req.param("lite")
-  var template = "disciplines-list"
+  var template = "subjects-list"
 
   if (!utils.isEmpty(lite))
-    template = "disciplines-list-lite"
+    template = "subjects-list-lite"
 
-  var collection = db.get("disciplines")
+  var collection = db.get("subjects")
   collection.find({}, function(err, doc) {
     if (err) {
-      return res.render(template, {disciplines: "error"});
+      return res.render(template, {subjects: "error"});
     }
-
+    
     if (doc.length > 0) {
-      res.render(template, {disciplines: doc})
-    } else {disciplines
-      res.render(template, {disciplines: "empty"})
+      res.render(template, {subjects: doc})
+    } else {
+      res.render(template, {subjects: "empty"})
     }
   })
 })
 
-app.post("/api/discipline/get", function(req, res) {
+app.post("/api/subject/get", function(req, res) {
   var response = new APIResponse()
   response.setResponse("critical", "This feature only accepts GET requests.")
   response.sendResponse(res)
 })
 
-app.get("/api/discipline/remove", function(req, res) {
+app.get("/api/subject/remove", function(req, res) {
   var response = new APIResponse()
   response.setResponse("critical", "This feature only accepts POST requests.")
   response.sendResponse(res)
 })
 
-app.post("/api/discipline/remove", function(req, res) {
+app.post("/api/subject/remove", function(req, res) {
   var response = new APIResponse()
   var id = req.param("id")
 
@@ -161,7 +161,7 @@ app.post("/api/discipline/remove", function(req, res) {
     return response.sendResponse(res)
   }
 
-  var collection = db.get("disciplines")
+  var collection = db.get("subjects")
   id = collection.id(id)
 
   collection.findAndModify({_id: id}, {}, {remove: true}, function(err, doc) {
@@ -170,18 +170,18 @@ app.post("/api/discipline/remove", function(req, res) {
       return response.sendResponse(res)
     }
 
-    response.setResponse("success", "Discipline removed!")
+    response.setResponse("success", "Subject removed!")
     response.sendResponse(res)
   })
 })
 
-app.get("/api/discipline/edit", function(req, res) {
+app.get("/api/subject/edit", function(req, res) {
   var response = new APIResponse()
   response.setResponse("critical", "This feature only accepts POST requests.")
   response.sendResponse(res)
 })
 
-app.post("/api/discipline/edit", function(req, res) {
+app.post("/api/subject/edit", function(req, res) {
   var response = new APIResponse()
   var id = req.param("id")
   var label = req.param("label")
@@ -192,7 +192,7 @@ app.post("/api/discipline/edit", function(req, res) {
     return response.sendResponse(res)
   }
 
-  var collection = db.get("disciplines")
+  var collection = db.get("subjects")
   id = collection.id(id)
 
   collection.update({_id: id}, {label: label, name: name}, function(err, doc) {
@@ -201,7 +201,7 @@ app.post("/api/discipline/edit", function(req, res) {
       return response.sendResponse(res)
     }
 
-    response.setResponse("success", "Discipline edited!")
+    response.setResponse("success", "Subject edited!")
     response.sendResponse(res)
   })
 })
@@ -215,16 +215,16 @@ app.get("/api/homework/add", function(req, res) {
 app.post("/api/homework/add", function(req, res) {
   var response = new APIResponse()
   var date = req.param("date")
-  var discipline = req.param("discipline")
+  var subject = req.param("subject")
   var description = req.param("description")
 
-  if (utils.isEmpty(date) || utils.isEmpty(discipline) || utils.isEmpty(description)) {
+  if (utils.isEmpty(date) || utils.isEmpty(subject) || utils.isEmpty(description)) {
     response.setResponse("error", "Something is empty!")
     return response.sendResponse(res)
   }
 
   var collection = db.get("homework")
-  collection.insert({date: date, discipline: discipline, description: description, done: false}, function(err, doc) {
+  collection.insert({date: date, subject: subject, description: description, done: false}, function(err, doc) {
     if (err) {
       response.setResponse("error", err.message)
       return response.sendResponse(res)
@@ -314,10 +314,10 @@ app.post("/api/homework/edit", function(req, res) {
   var response = new APIResponse()
   var id = req.param("id")
   var date = req.param("date")
-  var discipline = req.param("discipline")
+  var subject = req.param("subject")
   var description = req.param("description")
 
-  if (utils.isEmpty(id) || utils.isEmpty(date) || utils.isEmpty(discipline) || utils.isEmpty(description)) {
+  if (utils.isEmpty(id) || utils.isEmpty(date) || utils.isEmpty(subject) || utils.isEmpty(description)) {
     response.setResponse("error", "An error occurred!")
     return response.sendResponse(res)
   }
@@ -325,7 +325,7 @@ app.post("/api/homework/edit", function(req, res) {
   var collection = db.get("homework")
   id = collection.id(id)
 
-  collection.update({_id: id}, {$set: {date: date, discipline: discipline, description: description}}, function(err, doc) {
+  collection.update({_id: id}, {$set: {date: date, subject: subject, description: description}}, function(err, doc) {
     if (err) {
       response.setResponse("error", err.message)
       return response.sendResponse(res)

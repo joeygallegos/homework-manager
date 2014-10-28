@@ -17,7 +17,7 @@
                 <button href="#" class="btn btn-success" type="button" id="done" onclick="toggleHomework('<%=homework._id%>')"><i class="fa fa-check"></i></button><br/>
               </div>
               <div class="media-body">
-                <div class="label label-primary"><%=homework.discipline%></div> <div class="label label-warning"><%=homework.date%></div> <button href="#" class="btn btn-info btn-xs" id="edit" type="button" onclick="showEditHomework('<%=homework._id%>', '<%=homework.date%>', '<%=homework.discipline%>', '<%=homework.description%>')"><i class="fa fa-pencil"></i></button>
+                <div class="label label-primary"><%=homework.subject%></div> <div class="label label-warning"><%=homework.date%></div> <button href="#" class="btn btn-info btn-xs" id="edit" type="button" onclick="showEditHomework('<%=homework._id%>', '<%=homework.date%>', '<%=homework.subject%>', '<%=homework.description%>')"><i class="fa fa-pencil"></i></button>
                 <p><%=homework.description%></p>
               </div>
             </div>
