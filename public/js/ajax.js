@@ -33,12 +33,20 @@ function createAlert(element, clear, type, message) {
   console.log(message)
 }
 
+function getCurrentDate() {
+  return new Date().toJSON().slice(0, 10)
+}
+
 // Subjects
 postForm("#addSubject", function(data) {
   createAlert("#alerts", true, data.status, data.message)
 
-  if (data.status == "success")
+  if (data.status == "success") {
     refreshSubjectList()
+
+    $("#addSubject").find("input[name='label']").val("")
+    $("#addSubject").find("input[name='name']").val("")
+  }
 })
 
 postForm("#editSubject form", function(data) {
@@ -101,8 +109,18 @@ postForm("#addHomework form", function(data) {
   createAlert("#alerts", true, data.status, data.message)
   $("#addHomework").modal("hide")
 
-  if (data.status == "success")
+  if (data.status == "success") {
     refreshHomeworkList()
+
+    $("#addHomework").find("input[name='date']").val("")
+    $("#addHomework").find("input[name='subject']").val(getCurrentDate())
+    $("#addHomework").find("textarea[name='description']").val("")
+
+    var subjects = $("#addHomework").find("select[name='subject'] option")
+    $(subjects).each(function() {
+      $(this).prop("selected", false)
+    });
+  }
 })
 
 postForm("#editHomework form", function(data) {
@@ -163,6 +181,23 @@ function refreshHomeworkCount() {
     } else {
       $("#homework-count").html(html)
     }
+  })
+}
+
+// Login
+postForm("#login", function(data) {
+  if (data.message == "User logged in!") {
+    window.location = "/list";
+  } else {
+    createAlert("#alerts", true, data.status, data.message)
+  }
+})
+
+function logOut() {
+  console.log("Logging out")
+  $.ajax("/api/logout").done(function(html) {
+    console.log("done")
+    window.location = "/login"
   })
 }
 

@@ -86,3 +86,20 @@ form button#addSubject {
 .form-group#addHomework {
   padding: 0 15px;
 }
+
+.login {
+  width: 300px;
+  margin: 30px auto auto auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.login-header {
+  font-size: 28px;
+  text-align: center;
+  font-weight: bold;
+  margin: 0 0 10px;
+}
