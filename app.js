@@ -24,6 +24,10 @@ var bodyParser = require("body-parser")
 var session = require("express-session")
 
 var APIResponse = require("./lib/APIResponse")
+var status = new APIResponse().status
+
+var APIManager = require("./lib/APIManager")
+APIManager = new APIManager()
 
 var app = express()
 var db = monk("localhost:27017/homework-manager")
@@ -38,6 +42,25 @@ app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(session({secret: new Date().getTime().toString(), resave: true, saveUninitialized: true}))
 
+APIManager.registerPart("/api/discipline/add", APIManager.methods.POST)
+
+app.all("*", function(req, res, next) {
+  var path = req.path
+  var method = req.method
+
+  console.log(method)
+  if (path.indexOf("/api/") > -1) {
+    var parts = APIManager.getParts()
+    for (var i = 0; i < parts.length; i++) {
+      if (parts[i].path == path) {
+        return console.log(":D")
+      }
+    }
+  }
+
+  next()
+})
+
 app.get("/", function(req, res) {
   if (!req.session.isLogged)
     return res.redirect("/login")
@@ -50,6 +73,15 @@ app.get("/login", function(req, res) {
     return res.redirect("/list")
 
   res.render("login", {title: "Login"})
+})
+
+app.get("/teste", function(req, res) {
+  var response = new APIResponse()
+  /*response.setStatus(response.status.ERROR)
+  response.setMessage("teste2")
+  response.sendResponse(res)*/
+  response.setResponse(status.SUCCESS, "teste").sendResponse(res)
+  //response.sendResponse(response.status.SUCCESS, "teste", res)
 })
 
 app.get("/list", function(req, res) {
