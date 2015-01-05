@@ -1,0 +1,9 @@
+- Add: Documentation
+- Add: Generate the token on setup
+- Add: Database config
+- Add: App config
+- Add: SSL support
+- Add: Homework removal
+- Add: Pages to the homework list
+- Add: Footer with version information and things like that
+- Fix: Lists on the homework description

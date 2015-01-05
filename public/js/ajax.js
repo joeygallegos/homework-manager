@@ -6,6 +6,10 @@ function postForm(element, toRun) {
     var url = $(this).attr("action")
     var formData = $(this).serializeArray()
 
+    if (pageTitle.indexOf("Login") < 0)
+      formData.push("{token: token}")
+      //TODO
+
     $.post(url, formData, function(data) { toRun(data) }, "json");
   })
 }
@@ -38,10 +42,10 @@ function getCurrentDate() {
 }
 
 // Subjects
-postForm("#addSubject", function(data) {
-  createAlert("#alerts", true, data.status, data.message)
+postForm("#addSubject", function(response) {
+  createAlert("#alerts", true, response.status, response.message)
 
-  if (data.status == "success") {
+  if (response.status == "success") {
     refreshSubjectList()
 
     $("#addSubject").find("input[name='label']").val("")
@@ -49,11 +53,11 @@ postForm("#addSubject", function(data) {
   }
 })
 
-postForm("#editSubject form", function(data) {
-  createAlert("#alerts", true, data.status, data.message)
+postForm("#editSubject form", function(response) {
+  createAlert("#alerts", true, response.status, response.message)
   $("#editSubject").modal("hide")
 
-  if (data.status == "success")
+  if (response.status == "success")
     refreshSubjectList()
 })
 
@@ -61,10 +65,10 @@ function removeSubject(id) {
   var response = confirm("Do you REALLY want to remove a subject?")
   if (response) {
     console.log("Removing subject")
-    $.post("/api/subject/remove", {id: id}, function(data) {
-      createAlert("#alerts", true, data.status, data.message)
+    $.post("/api/subject/remove", {token: token, id: id}, function(response) {
+      createAlert("#alerts", true, response.status, response.message)
 
-      if (data.status == "success")
+      if (response.status == "success")
         refreshSubjectList()
     }, "json")
   }
@@ -74,7 +78,8 @@ function refreshSubjectList() {
   var pageTitle = $("title").html()
   if (pageTitle.indexOf("Subject Management") > -1) {
     console.log("Refreshing subject list")
-    $.ajax("/api/subject/get").done(function(html) {
+    $.ajax("/api/subject/get?token=" + token + "&format=html").done(function(response) {
+      var html = response.message
       $("#subjects").html(html)
     })
   }
@@ -83,7 +88,7 @@ function refreshSubjectList() {
 }
 
 function showEditSubject(id, label, name) {
-  var form = $("#editSubject form");
+  var form = $("#editSubject form")
 
   $(form).find("input[name='id']").val(id)
   $(form).find("input[name='label']").val(label)
@@ -95,7 +100,9 @@ function showEditSubject(id, label, name) {
 function populateSubjects() {
   console.log("Populating subjects")
   var pageTitle = $("title").html()
-  $.ajax("/api/subject/get?lite=true").done(function(html) {
+  $.ajax("/api/subject/get?token=" + token + "&format=dropdown").done(function(response) {
+    //TODO Handle errors
+    var html = response.message
     $("#addHomework select").html(html)
 
     if (pageTitle.indexOf("Homework List") > -1) {
@@ -105,11 +112,11 @@ function populateSubjects() {
 }
 
 // Homework
-postForm("#addHomework form", function(data) {
-  createAlert("#alerts", true, data.status, data.message)
+postForm("#addHomework form", function(response) {
+  createAlert("#alerts", true, response.status, response.message)
   $("#addHomework").modal("hide")
 
-  if (data.status == "success") {
+  if (response.status == "success") {
     refreshHomeworkList()
 
     $("#addHomework").find("input[name='date']").val("")
@@ -123,11 +130,11 @@ postForm("#addHomework form", function(data) {
   }
 })
 
-postForm("#editHomework form", function(data) {
-  createAlert("#alerts", true, data.status, data.message)
+postForm("#editHomework form", function(response) {
+  createAlert("#alerts", true, response.status, response.message)
   $("#editHomework").modal("hide")
 
-  if (data.status == "success")
+  if (response.status == "success")
     refreshHomeworkList()
 })
 
@@ -135,7 +142,9 @@ function refreshHomeworkList() {
   var pageTitle = $("title").html()
   if (pageTitle.indexOf("Homework List") > -1) {
     console.log("Refreshing homework list")
-    $.ajax("/api/homework/get").done(function(html) {
+    $.ajax("/api/homework/get?token=" + token + "&format=html").done(function(response) {
+      //TODO Handle errors
+      var html = response.message
       $("#homework").html(html)
     })
   }
@@ -164,10 +173,10 @@ function showEditHomework(id, date, subject, description) {
 
 function toggleHomework(id) {
   console.log("Toggling homework")
-  $.post("/api/homework/toggle", {id: id}, function(data) {
-    createAlert("#alerts", true, data.status, data.message)
+  $.post("/api/homework/toggle", {token: token, id: id}, function(response) {
+    createAlert("#alerts", true, response.status, response.message)
 
-    if (data.status == "success")
+    if (response.status == "success")
       refreshHomeworkList()
   }, "json")
 }
@@ -175,7 +184,9 @@ function toggleHomework(id) {
 // Sidebar
 function refreshHomeworkCount() {
   console.log("Refreshing homework count")
-  $.ajax("/api/homework/get?count=true").done(function(html) {
+  $.ajax("/api/homework/get?token=" + token + "&format=count").done(function(response) {
+    //TODO Handle errors
+    var html = response.message;
     if (html == "0") {
       $("#homework-count").html("")
     } else {
@@ -185,18 +196,20 @@ function refreshHomeworkCount() {
 }
 
 // Login
-postForm("#login", function(data) {
-  if (data.message == "User logged in!") {
-    window.location = "/list";
+postForm("#login", function(response) {
+  //TODO Handle errors and make this more useful (?)
+  if (response.status == "success") {
+    window.location = "/list"
   } else {
-    createAlert("#alerts", true, data.status, data.message)
+    createAlert("#alerts", true, response.status, response.message)
   }
 })
 
 function logOut() {
   console.log("Logging out")
-  $.ajax("/api/logout").done(function(html) {
-    console.log("done")
+  $.ajax("/api/logout?token=" + token).done(function(response) {
+    //TODO Handle errors
+    console.log(response.message)
     window.location = "/login"
   })
 }

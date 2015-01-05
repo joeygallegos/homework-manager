@@ -1,15 +1,7 @@
-    <% if (subjects == "error") {%>
-      <div class="alert alert-danger" role="alert">
-        An error occurred while getting the subjects.
-      </div>
-    <%} else if (subjects == "empty") {%>
-      <div class="alert alert-danger" role="alert">
-        There are no subjects on the database.
-      </div>
-    <%} else {%>
+    <%if (format == "html") {%>
       <ul class="list-group">
-      <%for (var i = 0; i < subjects.length; i++) {%>
-        <%var subject = subjects[i]%>
+      <%for (var i = 0; i < data.length; i++) {%>
+        <%var subject = data[i]%>
         <li class="list-group-item">
           <div class="media">
             <div class="pull-left" id="controls">
@@ -21,4 +13,9 @@
         </li>
       <%}%>
       </ul>
+    <%} else {%>
+        <%for (var i = 0; i < data.length; i++) {%>
+          <%var subject = data[i]%>
+          <option value="<%=subject.label%>"><%=subject.label%>: <%=subject.name%></option>
+        <%}%>
     <%}%>
